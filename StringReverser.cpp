@@ -44,16 +44,21 @@ const std::string StringReverser::reverseWords(const std::string inputString)
     while (endIndex < reversedChars.length())
     {
         endIndex = reversedChars.find(' ', startIndex);
-        if (endIndex == std::string::npos)
-        {
-            endIndex = reversedChars.length();
-        }
         if (startIndex != 0)
         {
             outputString.append(" ");
         }
 
-        outputString.append(reverseLetters(reversedChars.substr(startIndex, endIndex)));
+        if (endIndex != std::string::npos)
+        {
+            std::string temp = reversedChars.substr(startIndex, endIndex - startIndex);
+            outputString.append(reverseLetters(temp));
+        }
+        else
+        {
+            outputString.append(reverseLetters(reversedChars.substr(startIndex)));
+            endIndex = reversedChars.length();
+        }
         startIndex = endIndex + 1;
     }
 
